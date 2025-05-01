@@ -5,27 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kingfield Live</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
+    }
+    body {
       font-family: Arial, sans-serif;
-      display: grid;
-      grid-template-areas:
-        "header header header"
-        "menu main side"
-        "sponsor sponsor sponsor";
-      grid-template-columns: 200px 1fr 200px;
-      grid-template-rows: auto 1fr auto;
-      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     header {
-      grid-area: header;
       background: #3a78b4;
       color: white;
       padding: 10px;
       text-align: center;
     }
     nav {
-      grid-area: menu;
       background: #cde5a1;
       writing-mode: vertical-rl;
       text-align: center;
@@ -33,14 +28,14 @@
       padding: 10px;
     }
     main {
-      grid-area: main;
-      background: #f5f4ed;
       display: flex;
+      flex: 1;
+      background: #f5f4ed;
       align-items: center;
       justify-content: center;
+      flex-direction: row;
     }
     aside {
-      grid-area: side;
       background: #f9d0a5;
       display: flex;
       flex-direction: column;
@@ -48,28 +43,21 @@
       padding: 10px;
     }
     footer {
-      grid-area: sponsor;
       background: #fdf9c4;
       text-align: center;
       padding: 10px;
     }
     img {
       max-width: 100%;
-      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
     }
     @media (max-width: 768px) {
-      body {
-        grid-template-areas:
-          "header"
-          "main"
-          "menu"
-          "side"
-          "sponsor";
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto auto;
-      }
       nav {
         writing-mode: horizontal-tb;
+      }
+      main {
+        flex-direction: column;
       }
     }
   </style>
@@ -78,17 +66,17 @@
   <header>
     <h1>Welcome to Kingfield, Maine</h1>
   </header>
-  <nav>
-    <p>MENU</p>
-  </nav>
-  <main>
-    <img src="NVR-POST2-20250415_192643.jpg" alt="Live camera view from Kingfield" />
-  </main>
-  <aside>
-    <div>Thought for the Day</div>
-    <div>Meme of the Day</div>
-    <div>About Kingfield</div>
-  </aside>
+  <div style="display: flex; flex: 1;">
+    <nav>MENU</nav>
+    <main>
+      <img src="NVR-POST2-20250415_192643.jpg" alt="Live camera view from Kingfield" />
+    </main>
+    <aside>
+      <div>Thought for the Day</div>
+      <div>Meme of the Day</div>
+      <div>About Kingfield</div>
+    </aside>
+  </div>
   <footer>
     <p>SPONSORED BY</p>
   </footer>
