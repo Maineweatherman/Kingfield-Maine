@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kingfield Live</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #3a78b4;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    nav {
+      background: #cde5a1;
+      writing-mode: vertical-rl;
+      text-align: center;
+      font-weight: bold;
+      padding: 10px;
+    }
+    main {
+      display: flex;
+      flex: 1;
+      background: #f5f4ed;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+    }
+    aside {
+      background: #f9d0a5;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 10px;
+    }
+    footer {
+      background: #fdf9c4;
+      text-align: center;
+      padding: 10px;
+    }
+    img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+    @media (max-width: 768px) {
+      nav {
+        writing-mode: horizontal-tb;
+      }
+      main {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Kingfield, Maine</h1>
+  </header>
+  <div style="display: flex; flex: 1;">
+    <nav>MENU</nav>
+    <main>
+      <img src="NVR-POST2-20250415_192643.jpg" alt="Live camera view from Kingfield" />
+    </main>
+    <aside>
+      <div>Thought for the Day</div>
+      <div>Meme of the Day</div>
+      <div>About Kingfield</div>
+    </aside>
+  </div>
+  <footer>
+    <p>SPONSORED BY</p>
+  </footer>
+</body>
+</html>
