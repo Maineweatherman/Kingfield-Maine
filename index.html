@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,12 +29,26 @@
       padding: 10px;
     }
     main {
-      display: flex;
       flex: 1;
       background: #f5f4ed;
-      align-items: center;
+      display: flex;
       justify-content: center;
-      flex-direction: row;
+      align-items: center;
+      padding: 10px;
+    }
+    .responsive-iframe {
+      position: relative;
+      width: 90%;
+      padding-top: 40%;
+      max-width: 800px;
+    }
+    .responsive-iframe iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
     aside {
       background: #f9d0a5;
@@ -47,17 +62,9 @@
       text-align: center;
       padding: 10px;
     }
-    img {
-      max-width: 100%;
-      max-height: 80vh;
-      object-fit: contain;
-    }
     @media (max-width: 768px) {
       nav {
         writing-mode: horizontal-tb;
-      }
-      main {
-        flex-direction: column;
       }
     }
   </style>
@@ -68,19 +75,20 @@
   </header>
   <div style="display: flex; flex: 1;">
     <nav>MENU</nav>
-   <main style="flex: 1; overflow: auto;">
-  <iframe 
-    src="https://ambientweather.net/dashboard/844782b6d82dd8f5418087ecfa3073f1" 
-    width="100%" 
-    height="600px" 
-    style="border: none;"
-    loading="lazy"
-    title="Kingfield Weather Dashboard"
-  >
-    Your browser does not support iframes. 
-    <a href="https://ambientweather.net/dashboard/844782b6d82dd8f5418087ecfa3073f1" target="_blank" rel="noopener">View the weather dashboard here.</a>
-  </iframe>
-</main>
+    <main>
+      <div class="responsive-iframe">
+        <iframe
+          src="https://ambientweather.net/dashboard/844782b6d82dd8f5418087ecfa3073f1"
+          title="Kingfield Weather Dashboard"
+          loading="lazy"
+        >
+          Your browser does not support iframes.
+          <a href="https://ambientweather.net/dashboard/844782b6d82dd8f5418087ecfa3073f1" target="_blank" rel="noopener">
+            View the weather dashboard here.
+          </a>
+        </iframe>
+      </div>
+    </main>
     <aside>
       <div>Thought for the Day</div>
       <div>Meme of the Day</div>
