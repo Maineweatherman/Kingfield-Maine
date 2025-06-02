@@ -60,6 +60,13 @@
 <footer>
 <p><em>Prepared using data from the U.S. Bureau of Labor Statistics (Consumer Price Index – Northeast Region), Maine energy and economic reports, and national inflation trackers. This summary is intended as a general estimate based on publicly available data.</em></p>
 </footer>
+<script>
+  fetch('https://api.countapi.xyz/hit/kingfield.net/costofliving')
+    .then(response => response.json())
+    .then(data => {
+      // Count incremented silently
+    });
+</script>
 
 </body>
 </html>
