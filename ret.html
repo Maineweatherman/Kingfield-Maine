@@ -4,27 +4,89 @@
 <meta charset="UTF-8">
 <title>Retirement Countdown</title>
 <style>
-  body { font-family: Arial; text-align: center; margin-top: 20%; background: #f9f9f9; color: #333; }
+  body { font-family: Arial; text-align: center; margin-top: 10%; background: #f9f9f9; color: #333; }
   h1 { font-size: 2em; }
   #timer { font-size: 1.5em; margin-top: 20px; }
+  #info { margin-top: 10px; font-size: 1em; color: #555; }
 </style>
 </head>
 <body>
-  <h1>Countdown to Full Retirement</h1>
+  <h1>Actual Hours of Work Remaining</h1>
   <div id="timer"></div>
+  <div id="info">Countdown to your last workday before Full Social Security retirement: Monday, July 13, 2026</div>
+
   <script>
-    const targetDate = new Date("July 14, 2026 00:00:00").getTime();
-    function updateTimer() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      document.getElementById("timer").innerHTML = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+    const workHoursPerDay = 10.5;
+    const workDays = [
+      new Date("Nov 27, 2025"),
+      new Date("Nov 28, 2025"),
+      new Date("Dec 22, 2025"),
+      new Date("Dec 23, 2025"),
+      new Date("Dec 24, 2025"),
+      new Date("Dec 25, 2025"),
+      new Date("Dec 26, 2025"),
+      new Date("Jan 1, 2026"),
+      new Date("May 25, 2026")
+    ];
+
+    const vacationWeeks = [
+      {start: new Date("Jul 6, 2026"), end: new Date("Jul 10, 2026")}, // Early July off
+      {start: new Date("TBD"), end: new Date("TBD")} // Replace with your second vacation week
+    ];
+
+    const lastWorkday = new Date("Jul 13, 2026");
+
+    function isWorkday(date) {
+      const day = date.getDay();
+      if (day === 0 || day === 6) return false; // Weekend
+      for (let h of workDays) {
+        if (h.toDateString() === date.toDateString()) return false;
+      }
+      for (let v of vacationWeeks) {
+        if (v.start.toDateString() !== "Invalid Date" && date >= v.start && date <= v.end) return false;
+      }
+      return true;
     }
+
+    function hoursRemainingFromDate(startDate) {
+      let totalHours = 0;
+      let current = new Date(startDate);
+      const end = new Date(lastWorkday);
+      end.setHours(0,0,0,0);
+
+      while (current <= end) {
+        if (isWorkday(current)) {
+          if (current.toDateString() === startDate.toDateString()) {
+            // Partial day: subtract hours already worked
+            const hoursWorkedToday = current.getHours() + current.getMinutes()/60 + current.getSeconds()/3600;
+            totalHours += Math.max(0, workHoursPerDay - hoursWorkedToday);
+          } else {
+            totalHours += workHoursPerDay;
+          }
+        }
+        current.setDate(current.getDate() + 1);
+        current.setHours(0,0,0,0);
+      }
+      return totalHours;
+    }
+
+    function formatHours(hoursFloat) {
+      const totalSeconds = Math.floor(hoursFloat * 3600);
+      const days = Math.floor(totalSeconds / (workHoursPerDay * 3600));
+      const hours = Math.floor((totalSeconds % (workHoursPerDay * 3600)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      return `${hoursFloat.toFixed(1)} hours (~${days} workdays, ${hours} hours, ${minutes} minutes, ${seconds} seconds)`;
+    }
+
+    function updateTimer() {
+      const now = new Date();
+      const hoursLeft = hoursRemainingFromDate(now);
+      document.getElementById("timer").innerHTML = formatHours(hoursLeft);
+    }
+
     updateTimer();
-    setInterval(updateTimer, 1000);
+    setInterval(updateTimer, 1000); // Update every second
   </script>
 </body>
 </html>
